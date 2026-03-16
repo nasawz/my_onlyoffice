@@ -1,0 +1,32 @@
+services:
+  documentserver:
+    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice-documentserver
+    ports:
+      - "80:80"
+    environment:
+      - JWT_ENABLED=false
+      - ALLOW_PRIVATE_IP_ADDRESS=true
+      - ALLOW_META_IP_ADDRESS=true
+      - EXAMPLE_ENABLED=true
+    volumes:
+      - ./plugins/ai-writer:/var/www/onlyoffice/documentserver/sdkjs-plugins/ai-writer
+      - ./documentserver/ds-backend-proxy.conf:/etc/nginx/includes/ds-backend-proxy.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: onlyoffice-ai-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - backend-uploads:/app/uploads
+    restart: unless-stopped
+
+volumes:
+  backend-uploads:

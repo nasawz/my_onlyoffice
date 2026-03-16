@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Writer</title>
+    <link
+      rel="stylesheet"
+      href="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.css"
+    />
+    <link rel="stylesheet" href="styles/style.css?v=1773623915" />
+    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
+    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.js"></script>
+    <script defer src="scripts/code.js?v=1773623915"></script>
+  </head>
+  <body>
+    <main class="panel">
+      <header class="panel-header">
+        <h1>AI 写作助手</h1>
+        <button id="refreshSelectionBtn" class="btn btn--ghost" type="button">
+          读取选中文本
+        </button>
+      </header>
+
+      <section class="section">
+        <label for="selectedText">当前选中文本</label>
+        <textarea
+          id="selectedText"
+          class="text-block"
+          rows="4"
+          placeholder="请先在文档中选中一段文字，然后点击“读取选中文本”"
+        ></textarea>
+      </section>
+
+      <section class="section">
+        <label for="targetLanguage">翻译目标语言（仅翻译时生效）</label>
+        <select id="targetLanguage" class="input">
+          <option value="中文">中文</option>
+          <option value="英文">英文</option>
+          <option value="日文">日文</option>
+          <option value="韩文">韩文</option>
+          <option value="法文">法文</option>
+          <option value="德文">德文</option>
+        </select>
+      </section>
+
+      <section class="section">
+        <div class="actions-grid">
+          <button type="button" class="btn action-btn" data-action="expand">扩写</button>
+          <button type="button" class="btn action-btn" data-action="rewrite">改写</button>
+          <button type="button" class="btn action-btn" data-action="polish">润色</button>
+          <button type="button" class="btn action-btn" data-action="translate">翻译</button>
+          <button type="button" class="btn action-btn" data-action="summarize">总结</button>
+          <button type="button" class="btn action-btn" data-action="continue">续写</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <label for="resultText">AI 结果预览</label>
+        <textarea
+          id="resultText"
+          class="text-block"
+          rows="8"
+          placeholder="点击上方操作后，这里会显示 AI 结果"
+        ></textarea>
+      </section>
+
+      <section class="section section-inline">
+        <button id="replaceBtn" type="button" class="btn">替换选中文本</button>
+        <button id="insertBtn" type="button" class="btn btn--secondary">
+          插入到光标处
+        </button>
+      </section>
+
+      <hr class="divider" />
+
+      <section class="section">
+        <label>上传图片到文档</label>
+        <div class="upload-area">
+          <input type="file" id="imageFileInput" accept="image/*" class="input" />
+          <div id="imagePreview" class="image-preview" style="display:none;">
+            <img id="previewImg" alt="预览" />
+          </div>
+          <div class="section-inline">
+            <button id="uploadAndInsertBtn" type="button" class="btn">
+              上传并插入图片
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <section class="section">
+        <label>从服务器获取数据</label>
+        <p class="hint">从后端 API 获取一组示例数据，以表格形式插入到文档中。</p>
+        <button id="fetchDataBtn" type="button" class="btn btn--secondary">
+          获取数据并插入表格
+        </button>
+      </section>
+
+      <footer class="status">
+        <span id="statusText">就绪</span>
+      </footer>
+    </main>
+  </body>
+</html>
