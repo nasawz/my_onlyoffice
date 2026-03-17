@@ -1,0 +1,71 @@
+{
+  "id": "technical-proposal",
+  "name": "技术方案报告",
+  "description": "技术方案设计文档模板，适用于系统设计、技术选型、架构规划等场景",
+  "category": "技术文档",
+  "sections": [
+    {
+      "title": "概述",
+      "level": 1,
+      "description": "项目背景和方案概述",
+      "children": [
+        { "title": "项目背景", "level": 2, "description": "项目的背景和需求来源" },
+        { "title": "目标与范围", "level": 2, "description": "技术方案的目标和覆盖范围" },
+        { "title": "术语和缩略语", "level": 2, "description": "文档中使用的专业术语解释" }
+      ]
+    },
+    {
+      "title": "需求分析",
+      "level": 1,
+      "description": "业务需求和技术需求分析",
+      "children": [
+        { "title": "业务需求", "level": 2, "description": "核心业务流程和功能需求" },
+        { "title": "性能需求", "level": 2, "description": "系统性能指标和约束条件" },
+        { "title": "安全需求", "level": 2, "description": "安全合规和数据保护需求" }
+      ]
+    },
+    {
+      "title": "技术架构",
+      "level": 1,
+      "description": "整体技术架构设计",
+      "children": [
+        { "title": "架构概览", "level": 2, "description": "系统整体架构图和说明" },
+        { "title": "技术选型", "level": 2, "description": "关键技术组件的选型依据" },
+        { "title": "数据架构", "level": 2, "description": "数据模型和存储方案" },
+        { "title": "接口设计", "level": 2, "description": "系统间接口和API设计" }
+      ]
+    },
+    {
+      "title": "详细设计",
+      "level": 1,
+      "description": "核心模块的详细设计",
+      "children": [
+        { "title": "核心模块设计", "level": 2, "description": "各核心模块的功能和流程" },
+        { "title": "部署方案", "level": 2, "description": "系统部署架构和环境要求" },
+        { "title": "监控与运维", "level": 2, "description": "监控方案和运维策略" }
+      ]
+    },
+    {
+      "title": "实施计划",
+      "level": 1,
+      "description": "项目实施和交付计划",
+      "children": [
+        { "title": "开发计划", "level": 2, "description": "开发阶段和里程碑" },
+        { "title": "测试策略", "level": 2, "description": "测试方案和质量保障" },
+        { "title": "上线方案", "level": 2, "description": "系统上线流程和回滚预案" }
+      ]
+    },
+    {
+      "title": "风险与应对",
+      "level": 1,
+      "description": "技术风险识别和应对措施"
+    },
+    {
+      "title": "附录",
+      "level": 1,
+      "description": "参考资料和补充说明"
+    }
+  ],
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "updatedAt": "2025-01-01T00:00:00.000Z"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Report Generator",
+  "guid": "asc.{B2D8C4E1-5F3A-4D6B-9A7C-1E2F3A4B5C6D}",
+  "baseUrl": "",
+  "version": "1.0.0",
+  "minVersion": "8.0.0",
+  "variations": [
+    {
+      "description": "智能报告生成系统 - 大纲生成、模板库、AI写作、导出",
+      "url": "index.html",
+      "icons": [
+        "resources/img/icon.svg",
+        "resources/img/icon@2x.svg"
+      ],
+      "isViewer": false,
+      "EditorsSupport": [
+        "word"
+      ],
+      "isVisual": true,
+      "isModal": false,
+      "isInsideMode": false,
+      "initDataType": "none",
+      "initData": "",
+      "isUpdateOleOnResize": false,
+      "type": "panel",
+      "buttons": [],
+      "size": [
+        400,
+        600
+      ]
+    }
+  ]
+}

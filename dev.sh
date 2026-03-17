@@ -24,20 +24,24 @@ print_err()  { printf "  %s✘%s %s\n" "$RED" "$NC" "$1"; }
 
 # ─── 给插件静态资源加时间戳，破浏览器缓存 ───
 bust_plugin_cache() {
-  local html="$PROJECT_DIR/plugins/ai-writer/index.html"
-  if [ ! -f "$html" ]; then
-    return
-  fi
   local ts
   ts=$(date +%s)
-  # 替换已有的 ?v=... 或首次添加
-  if grep -q '?v=' "$html"; then
-    sed -i '' -E "s/\?v=[0-9]+/?v=${ts}/g" "$html"
-  else
-    sed -i '' -E "s/(styles\/style\.css)/\1?v=${ts}/" "$html"
-    sed -i '' -E "s/(scripts\/code\.js)/\1?v=${ts}/" "$html"
-  fi
-  print_ok "插件缓存已刷新 (v=${ts})"
+
+  for plugin_dir in "$PROJECT_DIR"/plugins/*/; do
+    local html="${plugin_dir}index.html"
+    if [ ! -f "$html" ]; then
+      continue
+    fi
+    local name
+    name=$(basename "$plugin_dir")
+    if grep -q '?v=' "$html"; then
+      sed -i '' -E "s/\?v=[0-9]+/?v=${ts}/g" "$html"
+    else
+      sed -i '' -E "s/(styles\/style\.css)/\1?v=${ts}/" "$html"
+      sed -i '' -E "s/(scripts\/code\.js)/\1?v=${ts}/" "$html"
+    fi
+    print_ok "插件 ${name} 缓存已刷新 (v=${ts})"
+  done
 }
 
 # ─── 等待 Document Server 就绪 ───
@@ -153,7 +157,7 @@ cmd_test_backend() {
     print_warn "润色接口返回 HTTP $http_code（可能是 API Key 未配置，不影响其他功能）"
   fi
 
-  printf "\n%s[3/3] GET /api/data-table%s\n" "$BOLD" "$NC"
+  printf "\n%s[3/4] GET /api/data-table%s\n" "$BOLD" "$NC"
   resp=$(curl -s -w "\n%{http_code}" http://localhost:3000/api/data-table)
   http_code=$(echo "$resp" | tail -1)
   body=$(echo "$resp" | sed '$d')
@@ -163,6 +167,18 @@ cmd_test_backend() {
     echo "    ..."
   else
     print_err "数据查询接口失败 (HTTP $http_code)"
+  fi
+
+  printf "\n%s[4/4] GET /api/templates%s\n" "$BOLD" "$NC"
+  resp=$(curl -s -w "\n%{http_code}" http://localhost:3000/api/templates)
+  http_code=$(echo "$resp" | tail -1)
+  body=$(echo "$resp" | sed '$d')
+  if [ "$http_code" = "200" ]; then
+    print_ok "模板列表接口正常 (HTTP $http_code)"
+    echo "$body" | python3 -m json.tool 2>/dev/null | head -10
+    echo "    ..."
+  else
+    print_err "模板列表接口失败 (HTTP $http_code)"
   fi
 }
 

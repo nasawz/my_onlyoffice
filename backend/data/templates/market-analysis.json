@@ -1,0 +1,70 @@
+{
+  "id": "market-analysis",
+  "name": "市场分析报告",
+  "description": "市场分析报告模板，适用于市场调研、行业分析、竞品分析等场景",
+  "category": "市场报告",
+  "sections": [
+    {
+      "title": "报告摘要",
+      "level": 1,
+      "description": "核心发现和关键建议"
+    },
+    {
+      "title": "研究方法",
+      "level": 1,
+      "description": "数据来源和分析方法说明"
+    },
+    {
+      "title": "行业概况",
+      "level": 1,
+      "description": "行业整体发展态势",
+      "children": [
+        { "title": "行业定义与分类", "level": 2, "description": "行业边界和细分领域" },
+        { "title": "行业发展历程", "level": 2, "description": "行业关键发展阶段" },
+        { "title": "政策环境", "level": 2, "description": "相关政策法规和监管动态" }
+      ]
+    },
+    {
+      "title": "市场规模分析",
+      "level": 1,
+      "description": "市场容量和增长分析",
+      "children": [
+        { "title": "市场规模现状", "level": 2, "description": "当前市场规模和结构" },
+        { "title": "增长驱动因素", "level": 2, "description": "推动市场增长的关键因素" },
+        { "title": "市场预测", "level": 2, "description": "未来3-5年市场规模预测" }
+      ]
+    },
+    {
+      "title": "竞争分析",
+      "level": 1,
+      "description": "竞争格局和主要参与者分析",
+      "children": [
+        { "title": "竞争格局", "level": 2, "description": "市场集中度和竞争态势" },
+        { "title": "主要企业分析", "level": 2, "description": "核心竞争者的业务和策略" },
+        { "title": "竞争要素", "level": 2, "description": "影响竞争的关键成功因素" }
+      ]
+    },
+    {
+      "title": "用户分析",
+      "level": 1,
+      "description": "目标用户画像和需求分析",
+      "children": [
+        { "title": "用户画像", "level": 2, "description": "目标用户群体特征" },
+        { "title": "用户需求", "level": 2, "description": "核心需求和痛点" },
+        { "title": "用户行为", "level": 2, "description": "消费习惯和决策路径" }
+      ]
+    },
+    {
+      "title": "机会与挑战",
+      "level": 1,
+      "description": "市场机会点和潜在挑战"
+    },
+    {
+      "title": "策略建议",
+      "level": 1,
+      "description": "基于分析的行动建议"
+    }
+  ],
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "updatedAt": "2025-01-01T00:00:00.000Z"
+}

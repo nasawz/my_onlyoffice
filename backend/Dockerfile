@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install --omit=dev
 
-COPY server.js ./
+COPY . .
 RUN mkdir -p uploads
 
 EXPOSE 3000

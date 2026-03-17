@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>智能报告生成系统</title>
+  <link rel="stylesheet" href="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.css" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
+  <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.js"></script>
+  <script defer src="scripts/utils.js"></script>
+  <script defer src="scripts/outline.js"></script>
+  <script defer src="scripts/template.js"></script>
+  <script defer src="scripts/writer.js"></script>
+  <script defer src="scripts/tools.js"></script>
+  <script defer src="scripts/export.js"></script>
+  <script defer src="scripts/proofread.js"></script>
+  <script defer src="scripts/code.js"></script>
+</head>
+<body>
+<main class="app">
+
+  <!-- Tab Bar -->
+  <nav class="tab-bar">
+    <button class="tab tab--active" data-tab="outline">大纲</button>
+    <button class="tab" data-tab="template">模板</button>
+    <button class="tab" data-tab="writer">写作</button>
+    <button class="tab" data-tab="tools">工具</button>
+    <button class="tab" data-tab="proofread">校稿</button>
+    <button class="tab" data-tab="export">导出</button>
+  </nav>
+
+  <!-- ==================== 大纲 Tab ==================== -->
+  <div class="tab-panel" data-panel="outline">
+    <section class="section">
+      <h2 class="section-title">项目信息</h2>
+      <div class="form-group">
+        <label for="projectName">项目名称 *</label>
+        <input type="text" id="projectName" class="input" placeholder="例：智慧城市交通管理系统" />
+      </div>
+      <div class="form-group">
+        <label for="reportType">报告类型</label>
+        <select id="reportType" class="input">
+          <option value="可行性研究报告">可行性研究报告</option>
+          <option value="技术方案报告">技术方案报告</option>
+          <option value="市场分析报告">市场分析报告</option>
+          <option value="项目立项报告">项目立项报告</option>
+          <option value="产品需求文档">产品需求文档</option>
+        </select>
+      </div>
+      <details class="form-details">
+        <summary>补充信息（可选）</summary>
+        <div class="form-group">
+          <label for="productDesc">产品描述</label>
+          <textarea id="productDesc" class="input" rows="2" placeholder="核心产品/服务描述"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="targetMarket">目标市场</label>
+          <input type="text" id="targetMarket" class="input" placeholder="目标市场和客户群体" />
+        </div>
+        <div class="form-group">
+          <label for="coreTech">核心技术</label>
+          <input type="text" id="coreTech" class="input" placeholder="关键技术和方案" />
+        </div>
+        <div class="form-group">
+          <label for="investment">预估投资</label>
+          <input type="text" id="investment" class="input" placeholder="例：500万元" />
+        </div>
+        <div class="form-group">
+          <label for="teamConfig">团队配置</label>
+          <textarea id="teamConfig" class="input" rows="2" placeholder="团队规模和核心角色"></textarea>
+        </div>
+      </details>
+      <button id="generateOutlineBtn" type="button" class="btn btn--primary btn--block">AI 生成大纲</button>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">大纲编辑</h2>
+        <button id="addSectionBtn" type="button" class="btn btn--sm btn--ghost">+ 添加章节</button>
+      </div>
+      <div id="outlineTree" class="outline-tree">
+        <p class="hint">通过上方表单生成大纲，或从模板库选择模板</p>
+      </div>
+      <button id="applyOutlineBtn" type="button" class="btn btn--primary btn--block">应用到文档（含目录）</button>
+    </section>
+  </div>
+
+  <!-- ==================== 模板 Tab ==================== -->
+  <div class="tab-panel panel-hidden" data-panel="template">
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">模板库</h2>
+        <button id="refreshTemplatesBtn" type="button" class="btn btn--sm btn--ghost">刷新</button>
+      </div>
+      <div id="templateList" class="template-list">
+        <p class="hint">加载中...</p>
+      </div>
+    </section>
+    <section class="section">
+      <button id="saveAsTemplateBtn" type="button" class="btn btn--secondary btn--block">将当前大纲保存为模板</button>
+    </section>
+  </div>
+
+  <!-- ==================== 写作 Tab ==================== -->
+  <div class="tab-panel panel-hidden" data-panel="writer">
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">AI 辅助写作</h2>
+        <button id="writerRefreshBtn" type="button" class="btn btn--sm btn--ghost">读取选中文本</button>
+      </div>
+      <textarea id="writerSelectedText" class="text-block" rows="3" placeholder="选中文档中的文字，点击"读取选中文本""></textarea>
+    </section>
+
+    <section class="section">
+      <div class="actions-grid">
+        <button type="button" class="btn writer-action-btn" data-action="expand">扩写</button>
+        <button type="button" class="btn writer-action-btn" data-action="rewrite">改写</button>
+        <button type="button" class="btn writer-action-btn" data-action="polish">润色</button>
+        <button type="button" class="btn writer-action-btn" data-action="translate">翻译</button>
+        <button type="button" class="btn writer-action-btn" data-action="summarize">总结</button>
+        <button type="button" class="btn writer-action-btn" data-action="continue">续写</button>
+      </div>
+      <div class="form-group">
+        <label for="writerTargetLang">翻译目标语言</label>
+        <select id="writerTargetLang" class="input">
+          <option value="中文">中文</option>
+          <option value="英文">英文</option>
+          <option value="日文">日文</option>
+          <option value="韩文">韩文</option>
+          <option value="法文">法文</option>
+          <option value="德文">德文</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">章节内容生成</h2>
+      <div class="form-group">
+        <label for="sectionTitle">章节标题</label>
+        <input type="text" id="sectionTitle" class="input" placeholder="例：市场规模分析" />
+      </div>
+      <div class="form-group">
+        <label for="sectionDesc">章节说明（可选）</label>
+        <textarea id="sectionDesc" class="input" rows="2" placeholder="对该章节内容的简要描述"></textarea>
+      </div>
+      <button id="generateSectionBtn" type="button" class="btn btn--primary btn--block">生成章节内容</button>
+    </section>
+
+    <section class="section">
+      <label>AI 结果</label>
+      <textarea id="writerResultText" class="text-block" rows="6" placeholder="AI 生成的结果将显示在这里"></textarea>
+      <div class="section-inline">
+        <button id="writerReplaceBtn" type="button" class="btn">替换选中文本</button>
+        <button id="writerInsertBtn" type="button" class="btn btn--secondary">插入到光标处</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== 工具 Tab ==================== -->
+  <div class="tab-panel panel-hidden" data-panel="tools">
+    <section class="section">
+      <h2 class="section-title">表格生成</h2>
+      <div class="form-group">
+        <label for="tableDescription">描述需要的表格内容</label>
+        <textarea id="tableDescription" class="input" rows="3" placeholder="例：2024年各季度销售数据对比表，包含产品名、各季度销量和同比增长率"></textarea>
+      </div>
+      <button id="generateTableBtn" type="button" class="btn btn--primary btn--block">生成并插入表格</button>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">图表生成</h2>
+      <div class="form-group">
+        <label for="diagramType">图表类型</label>
+        <select id="diagramType" class="input">
+          <option value="flowchart">流程图</option>
+          <option value="sequence">时序图</option>
+          <option value="class">类图</option>
+          <option value="gantt">甘特图</option>
+          <option value="pie">饼图</option>
+          <option value="mindmap">思维导图</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="diagramDescription">描述图表内容</label>
+        <textarea id="diagramDescription" class="input" rows="3" placeholder="例：用户注册流程，包含输入信息、验证邮箱、创建账户等步骤"></textarea>
+      </div>
+      <button id="generateDiagramBtn" type="button" class="btn btn--primary btn--block">生成 Mermaid 图表</button>
+      <textarea id="mermaidCode" class="text-block" rows="6" style="display:none;" placeholder="Mermaid 代码"></textarea>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section">
+      <h2 class="section-title">图片上传</h2>
+      <input type="file" id="toolImageInput" accept="image/*" class="input" />
+      <img id="toolImagePreview" alt="预览" class="image-preview-img" style="display:none;" />
+      <button id="toolImageUploadBtn" type="button" class="btn btn--block">上传并插入图片</button>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section">
+      <h2 class="section-title">数据表格</h2>
+      <p class="hint">从后端 API 获取数据，以表格形式插入文档。</p>
+      <button id="fetchDataTableBtn" type="button" class="btn btn--secondary btn--block">获取数据并插入表格</button>
+    </section>
+  </div>
+
+  <!-- ==================== 校稿 Tab ==================== -->
+  <div class="tab-panel panel-hidden" data-panel="proofread">
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">智能校稿</h2>
+        <button id="proofreadRefreshBtn" type="button" class="btn btn--sm btn--ghost">读取选中文本</button>
+      </div>
+      <textarea id="proofreadInput" class="text-block" rows="4" placeholder="输入或读取需要校稿的文本"></textarea>
+      <button id="proofreadBtn" type="button" class="btn btn--primary btn--block">开始校稿</button>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">发现的问题</h2>
+      <ul id="proofreadIssues" class="issues-list">
+        <li class="hint">校稿后这里将显示发现的问题</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <label>修正后文本</label>
+      <textarea id="proofreadCorrected" class="text-block" rows="4" placeholder="修正后的文本将显示在这里"></textarea>
+      <button id="applyProofreadBtn" type="button" class="btn btn--primary btn--block">应用修正到文档</button>
+    </section>
+  </div>
+
+  <!-- ==================== 导出 Tab ==================== -->
+  <div class="tab-panel panel-hidden" data-panel="export">
+    <section class="section">
+      <h2 class="section-title">报告导出</h2>
+      <p class="hint">将当前文档导出为指定格式。</p>
+      <div class="export-grid">
+        <button id="exportDocxBtn" type="button" class="btn btn--block">导出 DOCX</button>
+        <button id="exportPdfBtn" type="button" class="btn btn--block">导出 PDF</button>
+        <button id="exportMdBtn" type="button" class="btn btn--secondary btn--block">导出 Markdown</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Markdown 预览</h2>
+        <button id="previewMdBtn" type="button" class="btn btn--sm btn--ghost">生成预览</button>
+      </div>
+      <pre id="mdPreview" class="md-preview" style="display:none;"></pre>
+    </section>
+  </div>
+
+  <!-- Status Bar -->
+  <footer class="status-bar">
+    <span id="statusText">就绪</span>
+  </footer>
+
+</main>
+</body>
+</html>

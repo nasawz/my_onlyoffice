@@ -1,0 +1,65 @@
+{
+  "id": "project-proposal",
+  "name": "项目立项报告",
+  "description": "项目立项申请报告模板，适用于新项目申请、投资评估等场景",
+  "category": "研究报告",
+  "sections": [
+    {
+      "title": "项目概述",
+      "level": 1,
+      "description": "项目基本信息和目标",
+      "children": [
+        { "title": "项目名称与定位", "level": 2, "description": "项目名称、定位和核心价值" },
+        { "title": "项目目标", "level": 2, "description": "短期和长期目标" },
+        { "title": "项目范围", "level": 2, "description": "项目边界和交付物" }
+      ]
+    },
+    {
+      "title": "立项依据",
+      "level": 1,
+      "description": "项目立项的理由和依据",
+      "children": [
+        { "title": "市场需求", "level": 2, "description": "市场痛点和需求分析" },
+        { "title": "战略匹配", "level": 2, "description": "与公司战略的匹配度" },
+        { "title": "可行性初评", "level": 2, "description": "技术和商业可行性初步评估" }
+      ]
+    },
+    {
+      "title": "解决方案",
+      "level": 1,
+      "description": "项目的核心解决方案",
+      "children": [
+        { "title": "产品方案", "level": 2, "description": "产品功能和特色" },
+        { "title": "技术路线", "level": 2, "description": "关键技术方案" },
+        { "title": "竞争优势", "level": 2, "description": "差异化竞争优势" }
+      ]
+    },
+    {
+      "title": "投资预算",
+      "level": 1,
+      "description": "项目投资和资源需求",
+      "children": [
+        { "title": "资金需求", "level": 2, "description": "分阶段资金预算" },
+        { "title": "人力需求", "level": 2, "description": "团队组建和人力配置" },
+        { "title": "设备与资源", "level": 2, "description": "硬件设备和其他资源" }
+      ]
+    },
+    {
+      "title": "预期收益",
+      "level": 1,
+      "description": "项目预期的经济和社会效益"
+    },
+    {
+      "title": "实施计划",
+      "level": 1,
+      "description": "项目实施步骤和时间规划"
+    },
+    {
+      "title": "风险评估",
+      "level": 1,
+      "description": "主要风险和应对策略"
+    }
+  ],
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "updatedAt": "2025-01-01T00:00:00.000Z"
+}
